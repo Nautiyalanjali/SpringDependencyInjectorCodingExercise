@@ -44,7 +44,6 @@ public class CsvReader {
 
 		catch (IOException ioe) {
 
-			// return new ArrayList<Book>();
 			ioe.printStackTrace();
 		}
 		return books;

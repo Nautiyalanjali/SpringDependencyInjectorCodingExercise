@@ -82,11 +82,11 @@ public class BookTest {
 		}
 	}
 
-	// Test case to verify if csv file is blank : Negative scenario
+	// Test case to verify if CSV file is blank : Negative scenario
 
 	@Test
 	public void emptyCsvReturnsErrorMessage() {
-		// String filePath = "Empty.csv";
+
 		List<Book> emptyList = new ArrayList<>();
 
 		lenient().when(csvreader.readBooksFromCSV(anyString())).thenReturn(emptyList);
