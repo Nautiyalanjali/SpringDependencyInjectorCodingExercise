@@ -1,5 +1,7 @@
 package org.classes;
 
+/* Book class with the following fields: "title", "author", and "price*/
+
 import java.math.BigDecimal;
 
 public class Book {

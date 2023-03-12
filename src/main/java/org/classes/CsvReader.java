@@ -1,54 +1,50 @@
 package org.classes;
 
+/*CSV reader component that reads the CSV file and returns a list of Book objects.*/
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 @Component
 public class CsvReader {
 
-	
-	
-	
 	public List<Book> readBooksFromCSV(String fileName) {
 
 		List<Book> books = new ArrayList<>();
-		Path pathToFile = Paths.get(fileName);
-		// create an instance of BufferedReader
-		// using try with resource, Java 7 feature to close resources
 
-		try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) {
-
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			// read the first line from the text file
-
 			String line = br.readLine();
 
 			// loop until all lines are read
+			if (!line.equalsIgnoreCase("")) {
+				while (line != null) {
 
-			while (line != null) {
+					String[] attributes = line.split(",");
 
-				// use string.split to load a string array with the values from each line of the
-				// file, using a comma as the delimiter
+					Book book = createBook(attributes); // adding book into ArrayList
+					books.add(book); // read next line before looping
+					// if end of file reached, line would be null
+					line = br.readLine();
+				}
 
-				String[] attributes = line.split(",");
-
-				Book book = createBook(attributes); // adding book into ArrayList
-				books.add(book); // read next line before looping
-				// if end of file reached, line would be null
-				line = br.readLine();
 			}
 
-		} catch (IOException ioe) {
+			else {
+
+				return new ArrayList<Book>();
+			}
+		}
+
+		catch (IOException ioe) {
+
+			// return new ArrayList<Book>();
 			ioe.printStackTrace();
 		}
 		return books;
@@ -56,8 +52,9 @@ public class CsvReader {
 
 	private static Book createBook(String[] metadata) {
 		String title = metadata[0];
-		BigDecimal price = BigDecimal.valueOf(Long.valueOf(metadata[1]));
-		String author = metadata[2]; // create and return book of this metadata
+		String author = metadata[1]; // create and return book of this metadata
+		BigDecimal price = new BigDecimal(metadata[2]);
+
 		return new Book(title, author, price);
 	}
 }

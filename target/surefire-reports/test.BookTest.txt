@@ -1,0 +1,19 @@
+-------------------------------------------------------------------------------
+Test set: test.BookTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 7.673 sec <<< FAILURE! - in test.BookTest
+emptyCsvReturnsErrorMessage(test.BookTest)  Time elapsed: 0.814 sec  <<< ERROR!
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at org.classes.CsvReader.createBook(CsvReader.java:62)
+	at org.classes.CsvReader.readBooksFromCSV(CsvReader.java:38)
+	at test.BookTest.emptyCsvReturnsErrorMessage(BookTest.java:93)
+
+testCsvReader(test.BookTest)  Time elapsed: 0.044 sec  <<< ERROR!
+java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at test.BookTest.testCsvReader(BookTest.java:41)
+
